@@ -24,7 +24,7 @@ Route::get('/artikel', [PublikController::class, 'artikel'])->name('artikel.publ
 Route::get('/artikel/detail/{id}', [ArtikelController::class, 'show'])->name('artikel.detail');
 Route::get('/berita', [PublikController::class, 'berita'])->name('berita.publik');
 Route::get('/berita/detail/{id}', [BeritaController::class, 'show'])->name('berita.detail');
-// Route::get('/kontak', [PublikController::class, 'kontak'])->name('kontak.publik');
+Route::get('/kontak', [PublikController::class, 'kontak'])->name('kontak.publik');
 
 // Rute Admin
 Route::middleware(['auth', 'verified'])->group(function () {
