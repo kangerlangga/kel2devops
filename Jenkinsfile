@@ -15,6 +15,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 bat 'composer install --no-interaction --prefer-dist'
+                bat 'composer dump-autoload'
             }
         }
 
@@ -24,15 +25,24 @@ pipeline {
             }
         }
 
+        stage('Clear Caches') {
+            steps {
+                bat 'php artisan config:clear'
+                bat 'php artisan route:clear'
+                bat 'php artisan view:clear'
+                bat 'php artisan cache:clear'
+            }
+        }
+
         stage('Generate App Key') {
             steps {
                 bat 'php artisan key:generate --env=testing'
             }
         }
 
-        stage('Prepare Database (Testing Only)') {
+        stage('Prepare Database') {
             steps {
-                bat 'php artisan migrate --env=testing --force'
+                bat 'php artisan migrate:fresh --env=testing --force'
             }
         }
 
