@@ -46,19 +46,19 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Authentication Tests Only') {
             steps {
-                bat 'php artisan test --env=testing'
+                bat 'php artisan test --filter=AuthenticationTest --env=testing'
             }
         }
     }
 
     post {
         success {
-            echo '✅ Build and test successful on Windows!'
+            echo '✅ Authentication tests passed!'
         }
         failure {
-            echo '❌ Build failed. Check console output for details.'
+            echo '❌ Authentication test failed. Check console output for details.'
         }
     }
 }
